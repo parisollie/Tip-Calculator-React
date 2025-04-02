@@ -1,7 +1,7 @@
 import { Dispatch } from "react";
 import type { MenuItem } from "../types";
 import { OrderActions } from "../reducers/order-reducer";
-//actualizando
+//actualizando 2.0
 
 //V-112,paso 1.8
 type MenuItemProps = {
