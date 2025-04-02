@@ -1,22 +1,23 @@
-import { useCallback } from "react"
+import { Dispatch, useCallback } from "react"
 import { OrderItem } from "../types"
 import { formatCurrency } from "../helpers"
+import { OrderActions } from "../reducers/order-reducer"
 
 //Paso 3.3
 type OrderTotalsProps = {
     order: OrderItem[],
     //Paso 3.18
     tip: number,
-    //Paso 4.6
-    placeOrder: () => void
+    //Paso 5.24
+    dispatch: Dispatch<OrderActions>
 }
 
 /*
    Paso 3.4, le pasamos  el  "OrderTotalProps"
    Paso 3.17, le pasamos el tip
-   Paso 4.7, extraemos placeOrder
+
 */
-export default function OrderTotals({ order, tip, placeOrder }: OrderTotalsProps) {
+export default function OrderTotals({ order, tip, dispatch }: OrderTotalsProps) {
 
     /*
        Paso 3.5
@@ -53,8 +54,8 @@ export default function OrderTotals({ order, tip, placeOrder }: OrderTotalsProps
                 className="w-full bg-black p-3 uppercase text-white font-bold mt-10 disabled:opacity-10"
                 //estra deshabilitado si la cantidad es 0
                 disabled={totalAmount() === 0}
-                //Paso 4.8
-                onClick={placeOrder}
+                //Paso 5.25
+                onClick={() => dispatch({ type: 'place-order' })}
             >
                 Guardar Orden
             </button>

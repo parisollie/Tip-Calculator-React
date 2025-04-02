@@ -1,14 +1,15 @@
+import { useReducer } from "react"
 import MenuItem from "./components/MenuItem"
 import OrderContents from "./components/OrderContents"
 import OrderTotals from "./components/OrderTotals"
 import TipPercentageForm from "./components/TipPercentageForm"
 import { menuItems } from "./data/db"
-import useOrder from "./hooks/useOrder"
+import { initialState, orderReducer } from "./reducers/order-reducer"
 
 function App() {
 
-
-  const { order, tip, setTip, addItem, removeItem, placeOrder } = useOrder()
+  //Paso 5.4
+  const [state, dispatch] = useReducer(orderReducer, initialState)
 
 
   return (
@@ -32,7 +33,8 @@ function App() {
                 key={item.id}
                 item={item}
                 //Paso 1.17, le pasamos el addItem
-                addItem={addItem}
+                //addItem={addItem}
+                dispatch={dispatch}
               />
             ))}
           </div>
@@ -40,31 +42,35 @@ function App() {
 
         {/**Esta es mi otra columna,la de consumo*/}
         <div className="border border-dashed border-slate-300 p-5 rounded-lg space-y-10">
-          {/**Paso 4.13 si la orden es mayor a 0 */}
-          {order.length ? (
+          {/**Paso 4.13  si la orden es mayor a 0 
+           * Paso 5.12, le ponemos el state
+          */}
+          {state.order.length ? (
             <>
               {/** Paso 2.9,llamamos a nuestro componente OrderContents */}
               <OrderContents
-                order={order}
-                //Paso 2.16
-                removeItem={removeItem}
+                order={state.order}
+                //Paso 5.15
+                dispatch={dispatch}
+
               />
               {/**Paso 3.8, */}
               <TipPercentageForm
-                //Paso 3.12
-                setTip={setTip}
+                //paso 5.20
+                dispatch={dispatch}
                 //paso 4.10
-                tip={tip}
+                tip={state.tip}
+
               />
 
               {/**V-121, Paso 3.0 llamamos a OrderTotals */}
               <OrderTotals
-                //V-122 paso 3.2
-                order={order}
+                //V-122 paso 3.2 y paso 5.13,le pasamos el state
+                order={state.order}
                 //V-125,paso 3.16
-                tip={tip}
+                tip={state.tip}
                 //paso 4.5
-                placeOrder={placeOrder}
+                dispatch={dispatch}
               />
             </>
           ) : (

@@ -1,21 +1,22 @@
+import { Dispatch } from "react"
 import { formatCurrency } from "../helpers"
-import { MenuItem, OrderItem } from "../types"
+import { OrderItem } from "../types"
+import { OrderActions } from "../reducers/order-reducer"
+
 
 //Paso 2.10
 type OrderContentsProps = {
     order: OrderItem[],
-    /*
-      Paso 2.20, le paso el nombre de mi Prop : removeItem: y es una funcion que no devuelve nada.
-      Toma un id deMenuItem['id']
-    */
-    removeItem: (id: MenuItem['id']) => void
+    //Paso 5.16
+    dispatch: Dispatch<OrderActions>
+
 }
 
 /*
   V-118 paso 2.7, creamos el archivo OrderContents  y extraemos order y es de tipo : OrderContentsProps
-  Paso 2.17 ,extraemos removeItem
+  paso 5.17, le ponemos el dispatch
 */
-export default function OrderContents({ order, removeItem }: OrderContentsProps) {
+export default function OrderContents({ order, dispatch }: OrderContentsProps) {
 
     return (
         <div>
@@ -44,8 +45,8 @@ export default function OrderContents({ order, removeItem }: OrderContentsProps)
                         {/** Paso 2.14 */}
                         <button
                             className="bg-red-600 h-8 w-8 rounded-full text-white font-black"
-                            //Paso 2.18, le pasamos el removeItem
-                            onClick={() => removeItem(item.id)}
+                            //paso 5.18
+                            onClick={() => dispatch({ type: 'remove-item', payload: { id: item.id } })}
                         >
                             X
                         </button>

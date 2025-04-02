@@ -1,4 +1,5 @@
-import type { Dispatch, SetStateAction } from "react"
+import type { Dispatch } from "react"
+import { OrderActions } from "../reducers/order-reducer"
 
 //V-123,paso 3.7
 const tipOptions = [
@@ -21,8 +22,8 @@ const tipOptions = [
 
 //Paso 3.13
 type TipPercentageFormProps = {
-  //Es el tipo de variable que nos da visual, solo nos ponemos en setTip y nos lo da,
-  setTip: Dispatch<SetStateAction<number>>,
+  //paso 5.21
+  dispatch: Dispatch<OrderActions>,
   //Paso 4.11
   tip: number
 }
@@ -31,7 +32,7 @@ type TipPercentageFormProps = {
   Paso 3.14, le ponemos -> {setTip, tip} : TipPercentageFormProps) 
   extraemos tip
 */
-export default function TipPercentageForm({ setTip, tip }: TipPercentageFormProps) {
+export default function TipPercentageForm({ dispatch, tip }: TipPercentageFormProps) {
 
   return (
     <div>
@@ -46,8 +47,8 @@ export default function TipPercentageForm({ setTip, tip }: TipPercentageFormProp
               type="radio"
               name="tip"
               value={tipOption.value}
-              //paso 3.15,con el signo + lo convierte a number
-              onChange={e => setTip(+e.target.value)}
+              //Paso 5.22
+              onChange={e => dispatch({ type: 'add-tip', payload: { value: +e.target.value } })}
               //Paso 4.12,para revisar cuando este habilitado
               checked={tipOption.value === tip}
             />
