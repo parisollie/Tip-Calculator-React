@@ -1,51 +1,59 @@
-//Vid 127
 import { useCallback } from "react"
 import { OrderItem } from "../types"
 import { formatCurrency } from "../helpers"
 
-//Vid 122
+//Paso 3.3
 type OrderTotalsProps = {
     order: OrderItem[],
-    //Vid 125
+    //Paso 3.18
     tip: number,
-    //Vid 128
+    //Paso 4.6
     placeOrder: () => void
 }
 
-//Vid 122, le pasamos  el OrderTotalProps : {order, tip, placeOrder} : OrderTotalsProps
-//Vid 125, le pasamos el tip
-//Vid 128, extraemos placeOrder
-export default function OrderTotals({order, tip, placeOrder} : OrderTotalsProps) {
+/*
+   Paso 3.4, le pasamos  el  "OrderTotalProps"
+   Paso 3.17, le pasamos el tip
+   Paso 4.7, extraemos placeOrder
+*/
+export default function OrderTotals({ order, tip, placeOrder }: OrderTotalsProps) {
 
-    //Vid 122
-    //Uno es el total y el otro sobre el cual estamos operando  (total, item)
-    const subtotalAmount = useCallback(() => order.reduce( (total, item) => total + (item.quantity * item.price), 0 ) , [order])
-    //Vid 125 ,quiero que se ejecute cuando cambie la propina y la orden
+    /*
+       Paso 3.5
+       Uno es el total y el otro sobre el cual estamos operando  (total, item)
+       V-127,paso 4.2 usa CallBack
+    */
+    const subtotalAmount = useCallback(() => order.reduce((total, item) => total + (item.quantity * item.price), 0), [order])
+    //Paso 3.19 ,quiero que se ejecute cuando cambie la propina y la orden
     const tipAmount = useCallback(() => subtotalAmount() * tip, [tip, order])
-    //Vid 126
+    //V-126,paso 4.0
     const totalAmount = useCallback(() => subtotalAmount() + tipAmount(), [tip, order])
 
-    //Vid 121
     return (
         <>
-        
+            {/**Paso 3.1 */}
             <div className="space-y-3">
                 <h2 className="font-black text-2xl">Totales y Propina:</h2>
                 <p>Subtotal a pagar: {''}
-                    <span className="font-bold">{ formatCurrency(subtotalAmount()) }</span>
+                    {/**Paso 3.6, le ponemos el subtotalAmount*/}
+                    <span className="font-bold">{formatCurrency(subtotalAmount())}</span>
                 </p>
                 <p>Propina: {''}
-                    <span className="font-bold">{ formatCurrency(tipAmount()) }</span>
+                    {/**Paso 3.20, le ponemos el tipAmount*/}
+                    <span className="font-bold">{formatCurrency(tipAmount())}</span>
                 </p>
                 <p>Total a Pagar: {''}
-                    <span className="font-bold">{ formatCurrency(totalAmount()) }</span>
+                    {/**Paso 4.1, le ponemos el totalAmount*/}
+                    <span className="font-bold">{formatCurrency(totalAmount())}</span>
                 </p>
             </div>
 
+            {/**V-128,paso 4.3 */}
             <button
-                className="w-full bg-black p-3 uppercase text-white font-bold mt-10 disabled:opacity-10" 
+                className="w-full bg-black p-3 uppercase text-white font-bold mt-10 disabled:opacity-10"
+                //estra deshabilitado si la cantidad es 0
                 disabled={totalAmount() === 0}
-                //Vid 128
+                //Paso 4.8
                 onClick={placeOrder}
             >
                 Guardar Orden

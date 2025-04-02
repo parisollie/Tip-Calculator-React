@@ -7,6 +7,7 @@ import useOrder from "./hooks/useOrder"
 
 function App() {
 
+
   const { order, tip, setTip, addItem, removeItem, placeOrder } = useOrder()
 
 
@@ -39,30 +40,35 @@ function App() {
 
         {/**Esta es mi otra columna,la de consumo*/}
         <div className="border border-dashed border-slate-300 p-5 rounded-lg space-y-10">
-
+          {/**Paso 4.13 si la orden es mayor a 0 */}
           {order.length ? (
             <>
+              {/** Paso 2.9,llamamos a nuestro componente OrderContents */}
               <OrderContents
                 order={order}
-                //Vid 120
+                //Paso 2.16
                 removeItem={removeItem}
               />
+              {/**Paso 3.8, */}
               <TipPercentageForm
+                //Paso 3.12
                 setTip={setTip}
-                //Vid 128
+                //paso 4.10
                 tip={tip}
               />
+
+              {/**V-121, Paso 3.0 llamamos a OrderTotals */}
               <OrderTotals
-                //Vid 122
+                //V-122 paso 3.2
                 order={order}
-                //Vid 125
+                //V-125,paso 3.16
                 tip={tip}
-                //Vid 128
+                //paso 4.5
                 placeOrder={placeOrder}
               />
             </>
           ) : (
-            //Vid 128
+            //Paso 4.14
             <p className="text-center">La orden esta vacia</p>
           )}
 
