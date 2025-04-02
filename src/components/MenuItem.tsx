@@ -1,24 +1,31 @@
-//Vid 112 
-import type {  MenuItem } from "../types";
+import type { MenuItem } from "../types";
 
+//V-112,paso 1.8
 type MenuItemProps = {
-  //Vid 112, ese item será tipo MenuItem.
+  //ese item será tipo MenuItem.
   item: MenuItem,
-  //Vid 115, le pasamos un prop,por lo regular siempre serán igual.Va ser tipo Menu Item
+  //V-115,Paso 2.0 le pasamos un prop,por lo regular siempre serán igual.Va ser tipo MenuItem
   addItem: (item: MenuItem) => void
 }
-//Vid 112, : MenuItemProps es el que se le va asignar.VId 114, extraigo addItem
-export default function MenuItem({item, addItem} : MenuItemProps) {
+
+export default function MenuItem(
+  {
+    item,
+    //Paso 1.16,le pasamos el addItem
+    addItem
+    //Paso 1.9, : MenuItemProps es el que se le va asignar
+  }: MenuItemProps) {
+
   return (
-    //Vid 112 ,Le ponemos un evento de boton
-      <button 
-        className=' border-2 border-teal-400 hover:bg-teal-200 p-3 text-lg  rounded-lg flex justify-between w-full'
-        //Vid 114
-        onClick={() => addItem(item)}
-      > 
-  
-          <p>{item.name}</p> 
-          <p className='font-black'>${item.price}</p>
-      </button>
+    //Paso 1.11,Le ponemos un botón
+    <button
+      className=' border-2 border-teal-400 hover:bg-teal-200 p-3 text-lg  rounded-lg flex justify-between w-full'
+      //Paso 1.18, le pasamos el addItem
+      onClick={() => addItem(item)}
+    >
+      {/**Paso 1.10,le pasamos el nombre */}
+      <p>{item.name}</p>
+      <p className='font-black'>${item.price}mx</p>
+    </button>
   )
 }
