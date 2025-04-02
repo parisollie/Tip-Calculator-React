@@ -3,6 +3,16 @@
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 # Tip Calculator 9
 
+This application contains the following knowledge:
+
+- Tailwind CSS
+
+- Hooks
+
+- Typescript
+
+- Use Memo & Use Callback
+
 ## Development
 1. Clonar proyecto
 2. Instalar dependencias ```npm install```
