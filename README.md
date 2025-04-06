@@ -14,10 +14,10 @@ This application contains the following knowledge:
 - Use Memo & Use Callback
 
 ## Development
-1. Clonar proyecto
-2. Instalar dependencias ```npm install```
-3. Ejecutar el proyecto ```npm run dev```
-4. Ver la la siguiente liga ```http://localhost:5173/```
+1. Clone the project
+2. Install dependencies ```npm install```
+3. Run the project ```npm run dev```
+4. Go to the following path ```http://localhost:5173/```
 
 The aplication look like this :
 
